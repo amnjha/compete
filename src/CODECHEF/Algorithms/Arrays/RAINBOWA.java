@@ -11,6 +11,7 @@ public class RAINBOWA {
         Scanner sc= new Scanner(System.in);
         T=sc.nextInt();
 
+        //TODO : SOLUTION NOT WORKING
         while (T-- > 0){
             N=sc.nextInt();
             A=new int[N];
