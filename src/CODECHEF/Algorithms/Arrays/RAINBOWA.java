@@ -1,5 +1,6 @@
 package CODECHEF.Algorithms.Arrays;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -11,7 +12,6 @@ public class RAINBOWA {
         Scanner sc= new Scanner(System.in);
         T=sc.nextInt();
 
-        //TODO : SOLUTION NOT WORKING
         while (T-- > 0){
             N=sc.nextInt();
             A=new int[N];
@@ -20,15 +20,33 @@ public class RAINBOWA {
             }
 
             boolean found=true;
-            if(A[N/2]>7 || A[(N+1)/2]>7 || A[N/2]<1 || A[(N+1)/2]<1)
-                found=false;
-            if(found)
-            for (int i = 0,k=N-1 ;i<k; i++,k--) {
-                if(A[i]!=A[k] || A[i]>A[i+1] || A[i]>7 || A[i]<1) {
+            int k=0,l=N-1;
+            int ctr;
+            for(int i=0;i<6; i++) {
+                ctr=0;
+                while (A[k] == (i+1) && k<=(N+1)/2) {
+                    ctr++;
+                    k++;
+                }
+                if(ctr==0)
+                {
                     found=false;
                     break;
                 }
+                while (A[l]==(i+1) && l>=(N+1)/2)
+                {
+                    ctr--;
+                    l--;
+                }
+                if (ctr!=0 || A[i] > 7 || A[i] < 1) {
+                    found = false;
+                    break;
+                }
             }
+
+            if(A[k]!=7 || A[l]!=7)
+                found=false;
+
             System.out.println(found?"yes":"no");
 
         }
