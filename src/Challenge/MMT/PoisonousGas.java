@@ -1,48 +1,47 @@
-package CODECHEF.LongChallenge.April;
+package Challenge.MMT;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.math.BigInteger;
 import java.util.StringTokenizer;
 
-public class WGHTNUM {
+public class PoisonousGas {
+    static FastReader reader= new FastReader();
     public static void main(String[] args) {
-        FastReader reader = new FastReader();
-        int T = reader.nextInt();
-        int W;
-        long N;
+        int T= reader.nextInt();
 
-        while (T -- > 0) {
-            N = reader.nextInt();
-            W = reader.nextInt();
-
-            if (W >9 || W <-9)
-            {
-                System.out.println(0);
-                continue;
-            }
-
-            int x;
-            if (W< 0)
-                x=10+W;
-            else
-                x=9-W;
-
-            String val="1";
-            if(x >0)
-                val = x +"";
-            if (N > 2) {
-                String f = "%-" + (N - 2) + "s";
-                val = String.format(f, val).replace(' ', '0');
-                if (val.length() > 9)
-                    val = new BigInteger(val).mod(BigInteger.valueOf(1000000007)).toString();
-            }
-
-            System.out.println(val);
+        while (T-- >0){
+            int N= reader.nextInt();
+            solve(N);
         }
     }
-    static class FastReader {
+
+    private static void solve(int N){
+        int sum=0,k;
+        for (int i = 0; i < N; i++) {
+            k=reader.nextInt();
+            if (k>0)
+                sum+=k;
+        }
+
+        boolean res=false;
+        int val=1;
+        while (val<=sum)
+        {
+            if(sum==val)
+            {
+                res=true;
+                break;
+            }
+            val=val*2;
+        }
+        if(res)
+            System.out.println("Yes");
+        else
+            System.out.println("No");
+    }
+
+    private static class FastReader {
         BufferedReader br;
         StringTokenizer st;
 
@@ -84,4 +83,5 @@ public class WGHTNUM {
             return str;
         }
     }
+
 }

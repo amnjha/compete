@@ -1,48 +1,59 @@
-package CODECHEF.LongChallenge.April;
+package Challenge.MMT;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.math.BigInteger;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.StringTokenizer;
 
-public class WGHTNUM {
+public class Candies {
     public static void main(String[] args) {
-        FastReader reader = new FastReader();
-        int T = reader.nextInt();
-        int W;
-        long N;
+        FastReader reader= new FastReader();
+        String S= reader.nextLine();
+        int T=reader.nextInt();
 
-        while (T -- > 0) {
-            N = reader.nextInt();
-            W = reader.nextInt();
-
-            if (W >9 || W <-9)
-            {
-                System.out.println(0);
-                continue;
-            }
-
-            int x;
-            if (W< 0)
-                x=10+W;
-            else
-                x=9-W;
-
-            String val="1";
-            if(x >0)
-                val = x +"";
-            if (N > 2) {
-                String f = "%-" + (N - 2) + "s";
-                val = String.format(f, val).replace(' ', '0');
-                if (val.length() > 9)
-                    val = new BigInteger(val).mod(BigInteger.valueOf(1000000007)).toString();
-            }
-
-            System.out.println(val);
+        while (T-- > 0){
+            int K= reader.nextInt();
+            System.out.println(solve(S,K));
         }
     }
-    static class FastReader {
+
+    public static int solve(String S, int K) {
+
+        if (K==1)
+            return 1;
+        while(K<S.length()){
+            for (int i=0; (i+K)<=S.length(); i++){
+                if (checkPalin(S.substring(i,i+K)))
+                    return K;
+            }
+            K++;
+        }
+        return -1;
+    }
+
+    private static boolean checkPalin(String S){
+        Map<Character, Integer> countVal= new HashMap<>();
+        for (char c : S.toCharArray()){
+            if (countVal.get(c)==null)
+                countVal.put(c,1);
+            else
+                countVal.put(c,countVal.get(c)+1);
+        }
+
+        int allowedOdds= S.length()%2;
+        for(Map.Entry<Character, Integer> entry : countVal.entrySet()){
+            if(entry.getValue()%2!=0)
+                allowedOdds--;
+
+            if (allowedOdds<0)
+                return false;
+        }
+        return true;
+    }
+
+    private static class FastReader {
         BufferedReader br;
         StringTokenizer st;
 
